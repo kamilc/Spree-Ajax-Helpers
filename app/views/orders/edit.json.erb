@@ -1,0 +1,18 @@
+{
+  "number": "<%= @order.number %>",
+  "item_total": <%= @order.item_total.to_f %>,
+  "adjustment_total": <%= @order.adjustment_total %>,
+  "total": <%= @order.total %>,
+  "state": "<%= @order.state %>",
+
+  <% def draw_line_item(li) 
+       "{
+       \"product_name\": \"#{li.product.name}\",
+       \"quantity\": #{li.quantity},
+       \"price\": #{li.price}
+       }"
+     end
+  %>
+
+  "line_items": [ <%= @order.line_items.map { |li| draw_line_item(li) }.join(",") %> ]
+}
