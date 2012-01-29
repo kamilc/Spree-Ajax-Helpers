@@ -9,10 +9,12 @@
        "{
        \"product_name\": \"#{li.product.name}\",
        \"quantity\": #{li.quantity},
-       \"price\": #{li.price}
-       }"
+       \"price\": #{li.price},
+       \"thumb\": \"#{li.product.images.count > 0 ? li.product.images.first.attachment.url(:small) : ""}\",
+       \"product_url\": \"#{url_for(li.product)}\"
+       }".html_safe
      end
   %>
 
-  "line_items": [ <%= @order.line_items.map { |li| draw_line_item(li) }.join(",") %> ]
+  "line_items": [ <%= raw @order.line_items.map { |li| raw draw_line_item(li) }.join(",") %> ]
 }
